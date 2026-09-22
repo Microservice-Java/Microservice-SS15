@@ -33,6 +33,17 @@ Repository lưu trữ bài tập thực hành về **Two-Phase Commit (2PC)** v�
 
 ---
 
+### [Bài Tập 4: Xây Dựng "Nhạc Trưởng" Orchestrator Saga Với State Machine](./BaiTap4)
+- **Mục tiêu**: Thiết kế mô hình Orchestration Saga sử dụng State Machine tập trung (`ConcertBookingStateMachine`) để điều phối quy trình đặt vé sự kiện âm nhạc phức tạp mà không bị vướng hiện tượng "Event Spaghetti".
+- **Giải pháp**:
+  - **Trạng thái (States)**: `INITIATED`, `PAYMENT_PENDING`, `PAYMENT_COMPLETED`, `SEAT_RESERVING`, `BOOKING_CONFIRMED`, `CANCELLED`.
+  - **Sự kiện (Events)**: `PROCESS_PAYMENT`, `PAYMENT_SUCCESS`, `PAYMENT_FAILED`, `RESERVE_SEATS`, `RESERVATION_SUCCESS`, `RESERVATION_FAILED`.
+  - **Retry Policy**: Tự động thử lại tối đa 3 lần với khoảng chờ 2 giây cho bước xử lý thanh toán khi gặp sai sót tạm thời.
+  - **Compensating Transactions**: Tự động hoàn tiền (`paymentService.refund`) khi việc giữ chỗ thất bại sau khi đã thanh toán thành công.
+- **Báo cáo chi tiết**: [BaoCao_BaiTap4.md](./BaiTap4/BaoCao_BaiTap4.md)
+
+---
+
 ## Hướng dẫn chạy và kiểm thử
 
 ### Bài Tập 1
@@ -50,5 +61,11 @@ cd BaiTap2
 ### Bài Tập 3
 ```bash
 cd BaiTap3
+./gradlew test
+```
+
+### Bài Tập 4
+```bash
+cd BaiTap4
 ./gradlew test
 ```

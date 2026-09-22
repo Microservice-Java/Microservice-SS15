@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: concert-orchestrator-state-machine
+  datasource:
+    url: jdbc:h2:mem:orchestrator_sm_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+orchestrator:
+  retry:
+    max-attempts: 3
+    delay-ms: 100 # Default delay set to 100ms for fast tests, can be configured
+
+logging:
+  level:
+    com.example: INFO
