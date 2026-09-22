@@ -13,10 +13,26 @@ Repository lưu trữ bài tập thực hành về **Two-Phase Commit (2PC)** v�
 
 ---
 
+### [Bài Tập 2: Xây Dựng "Bản Đồ Dẫn Đường" Với Correlation ID & Tracing](./BaiTap2)
+- **Mục tiêu**: Thiết lập cơ chế sinh và truyền `Correlation ID` xuyên suốt qua Kafka Record Headers giữa 3 Microservices (`MovieBookingService` $\rightarrow$ `SeatAllocationService` $\rightarrow$ `PaymentService`) trong giao dịch đặt vé xem phim trực tuyến.
+- **Giải pháp**:
+  - Sinh UUID `correlationId` tại `MovieBookingService` và đính kèm vào Kafka Header (không xâm nhập payload JSON).
+  - Trích xuất `correlationId` từ Kafka Header tại `SeatAllocationService` & `PaymentService` để ghi log tracing tập trung.
+  - Kế thừa và tiếp tục truyền `correlationId` ở header các sự kiện kế tiếp trong chuỗi Choreography Saga.
+- **Báo cáo chi tiết**: [BaoCao_BaiTap2.md](./BaiTap2/BaoCao_BaiTap2.md)
+
+---
+
 ## Hướng dẫn chạy và kiểm thử
 
 ### Bài Tập 1
 ```bash
 cd BaiTap1
+./gradlew test
+```
+
+### Bài Tập 2
+```bash
+cd BaiTap2
 ./gradlew test
 ```
