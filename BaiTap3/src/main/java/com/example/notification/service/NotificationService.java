@@ -1,0 +1,15 @@
+package com.example.notification.service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+@Service
+public class NotificationService {
+
+    private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
+
+    public void sendConfirmationEmail(String email, String correlationId) {
+        log.info("[NotificationService] Email sent successfully to {} for correlationId: {}", email, correlationId);
+    }
+}

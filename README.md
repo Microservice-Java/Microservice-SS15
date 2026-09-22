@@ -23,6 +23,16 @@ Repository lưu trữ bài tập thực hành về **Two-Phase Commit (2PC)** v�
 
 ---
 
+### [Bài Tập 3: Triển Khai Choreography Saga Với Apache Kafka](./BaiTap3)
+- **Mục tiêu**: Thiết lập luồng Choreography Saga giao tiếp 100% qua Kafka Topics giữa 3 dịch vụ (`ConcertBookingService` $\rightarrow$ `SeatAssignmentService` $\rightarrow$ `NotificationService`) cho hệ thống đặt vé xem hòa nhạc mà không sử dụng REST API giữa các service.
+- **Giải pháp**:
+  - `ConcertBookingService` phát `ConcertBookingEvent` (`correlationId: "CONCERT-2024-999"`) lên topic `concert-events`.
+  - `SeatAssignmentService` tiêu thụ sự kiện, giữ chỗ ghế, và tiếp tục phát `SeatReservedEvent` mang cùng `correlationId` lên topic `seat-events`.
+  - `NotificationService` tiêu thụ `SeatReservedEvent` và mô phỏng gửi email xác nhận.
+- **Báo cáo chi tiết**: [BaoCao_BaiTap3.md](./BaiTap3/BaoCao_BaiTap3.md)
+
+---
+
 ## Hướng dẫn chạy và kiểm thử
 
 ### Bài Tập 1
@@ -34,5 +44,11 @@ cd BaiTap1
 ### Bài Tập 2
 ```bash
 cd BaiTap2
+./gradlew test
+```
+
+### Bài Tập 3
+```bash
+cd BaiTap3
 ./gradlew test
 ```
